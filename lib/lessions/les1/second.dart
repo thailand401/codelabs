@@ -12,35 +12,25 @@ class SecondTab extends StatefulWidget {
 
 class MyGetHttpDataState extends State<SecondTab> {
   final String url =
-      "https://api.airtable.com/v0/appxz494JfvEM6uv4/menu?maxRecords=15";
+      "https://api.airtable.com/v0/appPosdEleymx942l/Contact4k?maxRecords=4000";
   List data;
   List<ContactModal> contacts = [];
 
-  // Function to get the JSON data
   Future<String> getJSONData() async {
     var response = await http.get(
-        // Encode the url
         Uri.encodeFull(url),
-        // Only accept JSON response
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
           "Authorization": "Bearer keyzAKTDalx09sgph"
         });
 
-    // Logs the response body to the console
-    //rprint(response.body);
-
-    // To modify the state of the app, use this method
     setState(() {
-      // Get the JSON data
       var dataConvertedToJSON = json.decode(response.body);
-      // Extract the required part and assign it to the global variable named data
       data = dataConvertedToJSON['records'];
       for (var dt in data) {
-        //print(dt);
         contacts.add(ContactModal(
-            fullName: dt['fields']['title'], email: dt['fields']['price']));
+            fullName: dt['fields']['first_name'], email: dt['fields']['phone1']));
       }
     });
 
@@ -60,8 +50,6 @@ class MyGetHttpDataState extends State<SecondTab> {
   @override
   void initState() {
     super.initState();
-
-    // Call the getJSONData() method when the app initializes
     print(this.getJSONData());
   }
 }

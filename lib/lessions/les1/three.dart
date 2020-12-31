@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:codelabs/lessions/les3/contact_grid.dart';
 
-class ThirdTab extends StatelessWidget {
-  final MyGridView myGridView = MyGridView();
-
+class ThirdTab extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("GridView Example"),
-        ),
-        body: myGridView.build(),
-      ),
-    );
-  }
+  MyGridView createState() => MyGridView();
 }
 
-class MyGridView {
+class MyGridView  extends State<ThirdTab> {
+
+  final String url =
+      "https://api.airtable.com/v0/appxz494JfvEM6uv4/brands?maxRecords=30";
+  List data;
+  List<Widget> grid_data = [];
+
   GestureDetector getStructuredGridCell(name, image) {
-    // Wrap the child under GestureDetector to setup a on click action
     return GestureDetector(
       onTap: () {
         print("onTap called.");
@@ -42,26 +37,48 @@ class MyGridView {
     );
   }
 
-  GridView build() {
-    return GridView.count(
-      primary: true,
-      padding: const EdgeInsets.all(1.0),
-      crossAxisCount: 2,
-      childAspectRatio: 0.85,
-      mainAxisSpacing: 1.0,
-      crossAxisSpacing: 1.0,
-      children: <Widget>[
-        getStructuredGridCell("Facebook",
-            "https://dl.airtable.com/.attachments/3bd3ed483057b23e7e7d83a9ce57ed38/5a7cb2d0/Selection_001.jpg"),
-        getStructuredGridCell("Twitter",
-            "https://dl.airtable.com/.attachments/2709f05fcf16bd2185e50971f70d9192/6c1afa13/Selection_002.jpg"),
-        getStructuredGridCell("Instagram",
-            "https://dl.airtable.com/.attachments/f4f288130224a9dd33c642047d5ec7bc/d93c17e4/Selection_003.jpg"),
-        getStructuredGridCell("Linkedin",
-            "https://dl.airtable.com/.attachments/3bd3ed483057b23e7e7d83a9ce57ed38/5a7cb2d0/Selection_001.jpg"),
-        getStructuredGridCell("Google Plus", "social/google_plus.png"),
-        getStructuredGridCell("Launcher Icon", "ic_launcher.png"),
-      ],
+  Future<String> getJSONData() async {
+    var response = await http.get(
+        Uri.encodeFull(url),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer keyzAKTDalx09sgph"
+        });
+
+    setState(() {
+      var dataConvertedToJSON = json.decode(response.body);
+      data = dataConvertedToJSON['records'];
+      for (var dt in data) {
+        //print(dt['fields']['title']);
+        grid_data.add(getStructuredGridCell(
+            dt['fields']['title'], dt['fields']['phone'])
+          );
+      }
+    });
+
+    return "Successfull";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Grid Contact"),
+          backgroundColor: Colors.redAccent,
+        ),
+        body: Container(
+          child: GridView.count(
+              crossAxisCount: 2, children: grid_data
+          ),
+        ),
     );
+        //body: ContactsGrid(grid_data));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getJSONData();
   }
 }
