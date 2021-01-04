@@ -12,7 +12,7 @@ class _HomePageState extends State<MainHome> {
   Future<List<String>> seasons;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     seasons = getJSONData();
   }
@@ -46,13 +46,14 @@ class _HomePageState extends State<MainHome> {
           if (seasons.hasData) {
             return GridView.builder(
                 itemCount: seasons.data.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0),
                 itemBuilder: (context, index) {
                   return getStructuredGridCell(
-                    seasons.data[index], "https://placeimg.com/150/100/any"
-                  );
-                }
-            );
+                      seasons.data[index], "https://placeimg.com/150/100/any");
+                });
           } else if (seasons.hasError) {
             return Text("Error");
           }
@@ -65,16 +66,13 @@ class _HomePageState extends State<MainHome> {
   Future<List<String>> getJSONData() async {
     List<String> rdata = [];
     final String url =
-      "https://api.airtable.com/v0/appxz494JfvEM6uv4/brands?maxRecords=30";
+        "https://api.airtable.com/v0/appxz494JfvEM6uv4/brands?maxRecords=30";
     List data;
-    var response = await http.get(
-        Uri.encodeFull(url),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer keyzAKTDalx09sgph"
-        });
-
+    var response = await http.get(Uri.encodeFull(url), headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer keyzAKTDalx09sgph"
+    });
     setState(() {
       var dataConvertedToJSON = json.decode(response.body);
       data = dataConvertedToJSON['records'];
@@ -82,7 +80,7 @@ class _HomePageState extends State<MainHome> {
         rdata.add(dt['fields']['title']);
       }
     });
-print(rdata);
+
     return rdata;
   }
 }

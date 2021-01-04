@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:codelabs/home_bottom_tab.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:codelabs/checkingPage.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Bottom Sheet',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        backgroundColor: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
+          bodyText1: GoogleFonts.montserrat(textStyle: textTheme.bodyText1),
+        ),
       ),
-      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
+      home: CheckingPage(),
     );
   }
 }
