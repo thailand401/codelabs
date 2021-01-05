@@ -39,7 +39,7 @@ class MyHomeState extends State<MyHomePage>
       // Appbar
       appBar: AppBar(
         // Title
-        title: Text("Using Bottom Navigation Bar"),
+        title: Text("Main Home Shjpr Application"),
         // Set the background color of the App Bar
         backgroundColor: Colors.blue,
       ),
@@ -53,7 +53,7 @@ class MyHomeState extends State<MyHomePage>
       // Set the bottom navigation bar
       bottomNavigationBar: Material(
         // set the color of the bottom navigation bar
-        color: Colors.yellow,
+        color: Colors.cyan,
         // set the tab bar as the child of bottom navigation bar
         child: TabBar(
           tabs: <Tab>[

@@ -16,6 +16,7 @@ class _CheckingPagePageState extends State<CheckingPage> {
 
   Widget _label() {
     return Container(
+        width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(top: 40, bottom: 20),
         child: Column(
           children: <Widget>[
@@ -26,7 +27,10 @@ class _CheckingPagePageState extends State<CheckingPage> {
             SizedBox(
               height: 20,
             ),
-            Icon(Icons.delivery_dining, size: 100, color: Colors.white),
+            Image(
+                image: AssetImage('assets/resource/logo.png'),
+                width: 80,
+                height: 80),
             SizedBox(
               height: 20,
             ),
@@ -68,13 +72,8 @@ class _CheckingPagePageState extends State<CheckingPage> {
 
   @override
   Widget build(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+    Future.delayed(Duration.zero, () => _showAlert(context));
+    _loginAction();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -92,7 +91,7 @@ class _CheckingPagePageState extends State<CheckingPage> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+                  colors: [Color(0xff348F50), Color(0xff56B4D3)])),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -109,24 +108,25 @@ class _CheckingPagePageState extends State<CheckingPage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    this._loginAction();
-    Navigator.pop(context);
-
-    if (isLoading == false) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WelcomePage()));
-    }
+  void _showAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 
   Future<void> _loginAction() async {
     //print(DateTime.now().millisecondsSinceEpoch);
-    await new Future.delayed(const Duration(seconds: 5));
     setState(() {
-      isLoading = false;
+      isLoading = true;
     });
+    await new Future.delayed(const Duration(seconds: 5));
+    if (isLoading == true) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WelcomePage()));
+    }
   }
 }

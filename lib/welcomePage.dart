@@ -14,7 +14,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   bool isLoading = false;
-  Widget _submitButton() {
+  Widget _loginButton() {
     return InkWell(
       onTap: () {},
       child: Container(
@@ -53,6 +53,34 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
+  Widget _submitButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 13),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Color(0xffdf8e33).withAlpha(100),
+                  offset: Offset(2, 4),
+                  blurRadius: 8,
+                  spreadRadius: 2)
+            ],
+            color: Colors.white),
+        child: Text(
+          'Login',
+          style: TextStyle(fontSize: 20, color: Color(0xfff7892b)),
+        ),
+      ),
+    );
+  }
+
   Future<void> _loginAction() async {
     //print(DateTime.now().millisecondsSinceEpoch);
     await new Future.delayed(const Duration(seconds: 5));
@@ -85,22 +113,26 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Widget _label() {
     return Container(
+        width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(top: 40, bottom: 20),
         child: Column(
           children: <Widget>[
             Text(
-              'Quick login with Touch ID',
+              'Welcome to Food Delivery',
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             SizedBox(
               height: 20,
             ),
-            Icon(Icons.fingerprint, size: 90, color: Colors.white),
+            Image(
+                image: AssetImage('assets/resource/logo.png'),
+                width: 80,
+                height: 80),
             SizedBox(
               height: 20,
             ),
             Text(
-              'Touch ID',
+              'Join Us',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 15,
@@ -115,21 +147,21 @@ class _WelcomePageState extends State<WelcomePage> {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-          text: 'd',
+          text: 'sh',
           style: GoogleFonts.portLligatSans(
             textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 30,
+            fontSize: 50,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
           children: [
             TextSpan(
-              text: 'ev',
-              style: TextStyle(color: Colors.black, fontSize: 30),
+              text: 'j',
+              style: TextStyle(color: Colors.black, fontSize: 50),
             ),
             TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              text: 'pr',
+              style: TextStyle(color: Colors.white, fontSize: 50),
             ),
           ]),
     );
@@ -154,14 +186,14 @@ class _WelcomePageState extends State<WelcomePage> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+                  colors: [Color(0xff348F50), Color(0xff56B4D3)])),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _title(),
               SizedBox(
-                height: 80,
+                height: 90,
               ),
               _submitButton(),
               SizedBox(

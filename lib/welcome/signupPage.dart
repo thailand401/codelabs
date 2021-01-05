@@ -50,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
           TextField(
               obscureText: isPassword,
               decoration: InputDecoration(
-                  border: InputBorder.none,
+                  border: OutlineInputBorder(),
                   fillColor: Color(0xfff3f3f4),
                   filled: true))
         ],
@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+              colors: [Color(0xff348F50), Color(0xff56B4D3)])),
       child: Text(
         'Register Now',
         style: TextStyle(fontSize: 20, color: Colors.white),
@@ -120,21 +120,21 @@ class _SignUpPageState extends State<SignUpPage> {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-          text: 'd',
+          text: 'sh',
           style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.display1,
+            textStyle: Theme.of(context).textTheme.headline4,
             fontSize: 30,
             fontWeight: FontWeight.w700,
-            color: Color(0xffe46b10),
+            color: Colors.cyan,
           ),
           children: [
             TextSpan(
-              text: 'ev',
+              text: 'j',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
             TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
+              text: 'pr',
+              style: TextStyle(color: Colors.cyan, fontSize: 30),
             ),
           ]),
     );
@@ -143,8 +143,8 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Username"),
-        _entryField("Email id"),
+        _entryField("Your Name"),
+        _entryField("Mobile Number"),
         _entryField("Password", isPassword: true),
       ],
     );
