@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:codelabs/welcomePage.dart';
 
@@ -28,19 +30,22 @@ class _CheckingPagePageState extends State<CheckingPage> {
               height: 20,
             ),
             Image(
-                image: AssetImage('assets/resource/logo.png'),
+                image: AssetImage('assets/resource/icon.png'),
                 width: 80,
                 height: 80),
             SizedBox(
               height: 20,
             ),
-            Text(
-              'Join Us',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                decoration: TextDecoration.underline,
+            new InkWell(
+              child: new Text(
+                'Join Us',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  decoration: TextDecoration.underline,
+                ),
               ),
+              onTap: () => launch('https://google.com')
             ),
           ],
         ));
@@ -70,10 +75,38 @@ class _CheckingPagePageState extends State<CheckingPage> {
     );
   }
 
+  Widget _checkingButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => WelcomePage()));
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width/2,
+        padding: EdgeInsets.symmetric(vertical: 13),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Color(0xffdf8e33).withAlpha(100),
+                  offset: Offset(2, 4),
+                  blurRadius: 8,
+                  spreadRadius: 2)
+            ],
+            color: Colors.white),
+        child: Text(
+          'Continue',
+          style: TextStyle(fontSize: 20, color: Color(0xfff7892b)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () => _showAlert(context));
-    _loginAction();
+    //Future.delayed(Duration.zero, () => _showAlert(context));
+    //_loginAction();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -100,6 +133,7 @@ class _CheckingPagePageState extends State<CheckingPage> {
               SizedBox(
                 height: 80,
               ),
+              _checkingButton(),
               _label()
             ],
           ),
@@ -128,5 +162,9 @@ class _CheckingPagePageState extends State<CheckingPage> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => WelcomePage()));
     }
+  }
+  @override
+  void initState() {
+    super.initState();
   }
 }

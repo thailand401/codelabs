@@ -125,7 +125,7 @@ class _WelcomePageState extends State<WelcomePage> {
               height: 20,
             ),
             Image(
-                image: AssetImage('assets/resource/logo.png'),
+                image: AssetImage('assets/resource/icon.png'),
                 width: 80,
                 height: 80),
             SizedBox(

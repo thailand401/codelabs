@@ -40,6 +40,7 @@ class MyHomeState extends State<MyHomePage>
       appBar: AppBar(
         // Title
         title: Text("Main Home Shjpr Application"),
+        automaticallyImplyLeading: false,
         // Set the background color of the App Bar
         backgroundColor: Colors.blue,
       ),

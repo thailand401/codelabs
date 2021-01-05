@@ -46,9 +46,9 @@ class MyGridView extends State<ThirdTab> {
           if (seasons.hasData) {
             return GridView.builder(
                 itemCount: seasons.data.length,
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
+                    crossAxisCount: 2,
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0),
                 itemBuilder: (context, index) {
